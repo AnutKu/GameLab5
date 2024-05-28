@@ -4,6 +4,11 @@
  */
 package mortalkombatbversion;
 
+import mortalkombatbversion.actions.Game;
+import mortalkombatbversion.gamecompnonets.Human;
+import mortalkombatbversion.gamecompnonets.Items;
+import mortalkombatbversion.gamecompnonets.Player;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.logging.Level;

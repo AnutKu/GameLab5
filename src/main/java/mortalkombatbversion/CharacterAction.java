@@ -4,6 +4,12 @@
  */
 package mortalkombatbversion;
 
+import mortalkombatbversion.fabrics.EnemyFabric;
+import mortalkombatbversion.gamecompnonets.Human;
+import mortalkombatbversion.gamecompnonets.Items;
+import mortalkombatbversion.gamecompnonets.Player;
+import mortalkombatbversion.heroes.*;
+
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -44,22 +50,34 @@ public class CharacterAction {
         switch (i) {
             case 0:
                 enemyy = enemyes[0];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Baraka.jpg");
+                icon1 =
+                        new ImageIcon(getClass().getClassLoader().getResource("baraka.jpeg"));
+
                 label2.setText("Baraka (танк)");
                 break;
             case 1:
                 enemyy = enemyes[1];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Sub-Zero.jpg");
+                // icon1 = new ImageIcon("src/main/resources/subzero.png");
+                icon1 =
+                        new ImageIcon(getClass().getClassLoader().getResource("subzero.png"));
+                icon1 = new ImageIcon(icon1.getImage().getScaledInstance(
+                        160, 290, java.awt.Image.SCALE_SMOOTH));
                 label2.setText("Sub-Zero (маг)");
                 break;
             case 2:
                 enemyy = enemyes[2];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Liu Kang.jpg");
+                icon1 =
+                        new ImageIcon(getClass().getClassLoader().getResource("liukang.jpg"));
+                icon1 = new ImageIcon(icon1.getImage().getScaledInstance(
+                        160, 290, java.awt.Image.SCALE_SMOOTH));
                 label2.setText("Liu Kang (боец)");
                 break;
             case 3:
                 enemyy = enemyes[3];
-                icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Sonya Blade.jpg");
+                icon1 = new ImageIcon(
+                        getClass().getClassLoader().getResource("sonyablade.png"));
+                icon1 = new ImageIcon(icon1.getImage().getScaledInstance(
+                        160, 290, java.awt.Image.SCALE_SMOOTH));
                 label2.setText("Sonya Blade (солдат)");
                 break;
         }

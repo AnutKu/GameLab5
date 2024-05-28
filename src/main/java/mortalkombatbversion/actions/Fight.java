@@ -2,9 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mortalkombatbversion;
+package mortalkombatbversion.actions;
 
 //ADD IMAGE!!!
+import mortalkombatbversion.*;
+import mortalkombatbversion.fabrics.EnemyFabric;
+import mortalkombatbversion.gamecompnonets.Human;
+import mortalkombatbversion.gamecompnonets.Items;
+import mortalkombatbversion.gamecompnonets.Player;
+import mortalkombatbversion.gamecompnonets.Result;
+import mortalkombatbversion.heroes.ShaoKahn;
+
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -22,7 +30,7 @@ public class Fight {
     int kind_attack[] = {0};
     int experiences[] = {40, 90, 180, 260, 410};
     EnemyFabric fabric = new EnemyFabric();
-    int i = 1;
+    public int i = 1;
     int k = -1;
     int stun = 0;
     double v = 0.0;
@@ -72,11 +80,11 @@ public class Fight {
     }
 
     public void Hit(Player human, Player enemy, int a, JLabel label,
-            JLabel label2, JDialog dialog, JLabel label3, CharacterAction action,
-            JProgressBar pr1, JProgressBar pr2, JDialog dialog1,
-            JDialog dialog2, JFrame frame, ArrayList<Result> results,
-            JLabel label4, JLabel label5, JLabel label6, JLabel label7,
-            JLabel label8, Items[] items, JRadioButton rb) {
+                    JLabel label2, JDialog dialog, JLabel label3, CharacterAction action,
+                    JProgressBar pr1, JProgressBar pr2, JDialog dialog1,
+                    JDialog dialog2, JFrame frame, ArrayList<Result> results,
+                    JLabel label4, JLabel label5, JLabel label6, JLabel label7,
+                    JLabel label8, Items[] items, JRadioButton rb) {
         label7.setText("");
         human.setAttack(a);
 
