@@ -15,7 +15,7 @@ import mortalkombatbversion.heroes.SonyaBlade;
 public class SonyaBladeFabric implements EnemyFabricInterface {
 
     @Override
-    public Player create(int i) {
+    public Player create() {
         Player enemy;
         enemy = new SonyaBlade(1, 80, 16, 1);
         return enemy;

@@ -9,26 +9,24 @@ package mortalkombatbversion.gamecompnonets;
  * @author Мария
  */
 public class Items {
-    
+
     private String name;
-    private int count;
-    
+    private int amount;
+
     public Items(String n, int c){
-        this.name=n;
-        this.count=c;
+        this.name = n;
+        this.amount = c;
     }
-    
     public void setName(String s){
-        this.name=s;
+        this.name = s;
     }
-    public void setCount(int c){
-        this.count+=c;
+    public void setAmount(int c){
+        this.amount += c;
     }
-    
     public String getName(){
         return this.name;
     }
-    public int getCount(){
-        return this.count;
+    public int getAmount(){
+        return this.amount;
     }
 }

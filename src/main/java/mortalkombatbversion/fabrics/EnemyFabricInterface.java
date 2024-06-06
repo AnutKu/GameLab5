@@ -11,5 +11,5 @@ import mortalkombatbversion.gamecompnonets.Player;
  * @author Мария
  */
 public interface EnemyFabricInterface {
-    public Player create(int i);
+    public Player create();
 }

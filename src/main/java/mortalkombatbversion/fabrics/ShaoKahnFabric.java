@@ -11,17 +11,18 @@ import mortalkombatbversion.heroes.ShaoKahn;
  *
  * @author Мария
  */
-public class ShaoKahnFabric implements EnemyFabricInterface {
-    
+public class ShaoKahnFabric implements EnemyFabricInterface{
+    /**
+     * Создание босса
+     */
     @Override
+    public Player create() {
+        return new ShaoKahn(3, 100, 30, 1);
+    }
+    /**
+     * Создание босса
+     */
     public Player create(int i) {
-        Player enemy;
-        if(i==0){
-            enemy = new ShaoKahn(3, 100, 30, 1);
-        }
-        else{
-           enemy = new ShaoKahn(3, 145, 44, 1); 
-        }
-        return enemy;
+        return new ShaoKahn(3, 145, 44, 1);
     }
 }

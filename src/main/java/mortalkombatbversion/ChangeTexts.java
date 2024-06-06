@@ -20,7 +20,7 @@ public class ChangeTexts {
 
 
 
-    public void NewRoundTexts(Player human, Player enemy, JProgressBar pr1,
+    public void newRoundTexts(Player human, Player enemy, JProgressBar pr1,
                               JProgressBar pr2, JLabel label, JLabel label2, JLabel label3,
                               JLabel label4, JLabel label5, JLabel label6, JLabel label7, JLabel label8, JLabel label9,
                               int i, Items[] items, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3) {
@@ -44,7 +44,7 @@ public class ChangeTexts {
         label9.setText("");
     }
 
-    public void RoundTexts(Player human, Player enemy, JLabel label, JLabel label2, int i, JLabel label3) {
+    public void roundTexts(Player human, Player enemy, JLabel label, JLabel label2, int i, JLabel label3) {
         if (enemy.getHealth() >= 0) {
             label.setText(Integer.toString(enemy.getHealth()) + "/" + Integer.toString(enemy.getMaxHealth()));
         } else {
@@ -62,7 +62,7 @@ public class ChangeTexts {
             label3.setText(enemy.getName()+"'s turn");
         }
     }
-    
+
     public void EndGameText(Human human, JLabel label){
         if(human.getWin()==12){
             label.setText("Победа на вашей стороне");
@@ -71,11 +71,12 @@ public class ChangeTexts {
             label.setText("Победа не на вашей стороне");
         }
     }
-    
+
     public void BagText( Items[] items, JRadioButton rb1, JRadioButton rb2, JRadioButton rb3){
-        rb1.setText(items[0].getName()+", "+items[0].getCount()+" шт");
-        rb2.setText(items[1].getName()+", "+items[1].getCount()+" шт");
-        rb3.setText(items[2].getName()+", "+items[2].getCount()+" шт");
+        rb1.setText(items[0].getName()+", "+items[0].getAmount()+" шт");
+        rb2.setText(items[1].getName()+", "+items[1].getAmount()+" шт");
+        rb3.setText(items[2].getName()+", "+items[2].getAmount()+" шт");
     }
+
 
 }

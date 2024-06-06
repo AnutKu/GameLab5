@@ -13,9 +13,11 @@ import mortalkombatbversion.heroes.Baraka;
  * @author Мария
  */
 public class BarakaFabric implements EnemyFabricInterface {
-
+    /**
+     * Создание вражеского персонажа
+     */
     @Override
-    public Player create(int i) {
+    public Player create() {
         Player enemy;
         enemy = new Baraka(1, 100, 12, 1);
         return enemy;

@@ -7,94 +7,112 @@ package mortalkombatbversion.actions;
 //ADD IMAGE!!!
 import mortalkombatbversion.ChangeTexts;
 import mortalkombatbversion.CharacterAction;
+import mortalkombatbversion.fabrics.EnemyFabric;
 import mortalkombatbversion.gamecompnonets.Human;
 import mortalkombatbversion.gamecompnonets.Items;
 import mortalkombatbversion.gamecompnonets.Player;
 import mortalkombatbversion.gamecompnonets.Result;
 import mortalkombatbversion.heroes.ShaoKahn;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
-
 
 /**
- * Класс описания возможных действий персонажей во время борьбы
+ * Класс описания возможных действий персонажей во время боя
  * @author Мария
  */
 public class Fight {
-
     ChangeTexts change = new ChangeTexts();
-    int kind_attack[] = {0};
+    int[] kind_attack = {0};
+    int[] experiences = {40, 90, 180, 260, 410};
+    EnemyFabric fabric = new EnemyFabric();
     public int i = 1;
     int k = -1;
     int stun = 0;
     double v = 0.0;
-    int NRoundsLoc=2;
-    int location = 1;
-
-
+    int current_location = 1;
+    int numberOfRoundsInLocation = 2;
     /**
-     * Описание результата от выбранных действий игрока и врага
+     * Установление кол-ва раундов для локации в зависимости от уровня игрока
+     * @param level уровень игрока
      */
-    public void Move(Player p1, Player p2, JLabel l, JLabel l2) {
+    private void setnumberOfRoundsInLocation(int level)
+    {
+        this.numberOfRoundsInLocation = level + 2;
+    }
+    /**
+     * Описание результата выбранных действий игрока и противника
+     */
+    public void move(Player p1, Player p2, JLabel l, JLabel l2) {
         if (stun == 1) {
             p1.setAttack(-1);
         }
         switch (Integer.toString(p1.getAttack()) + Integer.toString(p2.getAttack())) {
-            case "10" -> {
+            case "10":
                 v = Math.random();
                 if (p1 instanceof ShaoKahn & v < 0.15) {
-                    p2.setHealth(-(int) (p1.getDamage() * 0.5));
+                    p2.addHealth(-(int)(p1.getDamage() * 0.5));
                     l2.setText("Your block is broken");
-
                 } else {
-                    p1.setHealth(-(int) (p2.getDamage() * 0.5));
+                    p1.addHealth(-(int)(p2.getDamage() * 0.5));
                     l2.setText(p2.getName() + " counterattacked");
                 }
-            }
-            case "11" -> {
-                p2.setHealth(-p1.getDamage());
+                break;
+            case "11":
+                p2.addHealth(-p1.getDamage());
                 l2.setText(p1.getName() + " attacked");
-            }
-            case "00" -> {
+                break;
+            case "00":
                 v = Math.random();
                 if (v <= 0.5) {
                     stun = 1;
                 }
                 l2.setText("Both defended themselves");
-            }
-            case "01" -> l2.setText(p1.getName() + " didn't attacked");
-            case "-10" -> {
+                break;
+            case "01":
+                l2.setText(p1.getName() + " didn't attacked");
+                break;
+            case "-10":
                 l.setText(p1.getName() + " was stunned");
                 stun = 0;
                 l2.setText(p2.getName() + " didn't attacked");
-            }
-            case "-11" -> {
-                p1.setHealth(-p2.getDamage());
+                break;
+            case "-11":
+                p1.addHealth(-p2.getDamage());
                 l.setText(p1.getName() + " was stunned");
                 stun = 0;
                 l2.setText(p2.getName() + " attacked");
-            }
+                break;
         }
     }
-
     /**
      * Описание действий при выборе игроком атаки/защиты
-     * @param human
-     * @param enemy
+     * @param human Игрок
+     * @param enemy Противник
      * @param a выбор игрока атаковать или защищаться
      * a - attack (1) or defend (0)
+     * @param label Количество здоровья противника
+     * @param label2 Количество здоровья игрока
+     * @param dialog Окно с сообщением о завершении боя
+     * @param label3 Надпись о завершении боя
+     * @param pr1 Полоска здоровья игрока
+     * @param pr2 Полоска здоровья противника
+     * @param dialog1 Окно победы с попаданием в топ-10
+     * @param dialog2 Окно победы без попадания в топ-10
+     * @param frame Окно боя
+     * @param results Результаты для внесения в таблицу рекордов
+     * @param label4 Надпись о победе с попаданием в топ-10
+     * @param label5 Надпись о победе без попадания в топ-10
+     * @param label6 Надпись о том, чей сейчас ход
+     * @param label8 Надпись о том, что произошло в бою
+     * @param items Предметы в мешке
+     * @param rb Кнопка, соответствующая кресту возрождения из мешка
+     * @param changeLocationLabel Метка с информацией о локации
+     * @param backgroundPanel Главное окно игры с боем
      */
-    public void Hit(Player human, Player enemy, int a, JLabel label, JLabel label2, JDialog dialog,
-                    JLabel label3, CharacterAction action, JProgressBar pr1, JProgressBar pr2,
-                    JDialog dialog1, JDialog dialog2, JFrame frame, ArrayList<Result> results,
-                    JLabel label4, JLabel label5, JLabel label6, JLabel label7, JLabel label8,
-                    Items[] items, JRadioButton rb, JLabel ChangeLocationLabel, JPanel BackgroundPanel) {
+    public void hit(Player human, Player enemy, int a, JLabel label, JLabel label2, JDialog dialog, JLabel label3, CharacterAction action,
+                    JProgressBar pr1, JProgressBar pr2, JDialog dialog1, JDialog dialog2, JFrame frame, ArrayList<Result> results, JLabel label4, JLabel label5,
+                    JLabel label6, JLabel label7, JLabel label8, Items[] items, JRadioButton rb, JLabel changeLocationLabel, JPanel backgroundPanel) {
         label7.setText("");
         human.setAttack(a);
         if(enemy.getRecoveryAttempt() & enemy instanceof ShaoKahn ){
@@ -102,132 +120,110 @@ public class Fight {
            игрок защищается (a == 0) -> босс восстанавливает 50% от текущего урона
             игрок защищается (a == 1) -> босс получает двойной урон
             */
-
             ((ShaoKahn)enemy).attemptToRecover(a, human.getDamage());
-
-            enemy.SetRecoveryAttempt(false);
+            enemy.setRecoveryAttempt(false);
         }
-
-        ChangeLocationLabel.setText("");
         if (k < kind_attack.length - 1) {
             k++;
         } else {
-            kind_attack = action.ChooseBehavior(enemy, action);
+            kind_attack = action.chooseBehavior(enemy, action);
             k = 0;
         }
         enemy.setAttack(kind_attack[k]);
         if (i % 2 == 1) {
-            Move(human, enemy, label7, label8);
+            move(human, enemy, label7, label8);
         } else {
-            Move(enemy, human, label7, label8);
+            move(enemy, human, label7, label8);
         }
         i++;
-        change.RoundTexts(human, enemy, label, label2, i, label6);
-        action.HP(human, pr1);
-        action.HP(enemy, pr2);
-
-        if( (i+(int)(Math.random() * 5)) % 4 == 0 & enemy instanceof ShaoKahn ){
+        change.roundTexts(human, enemy, label, label2, i, label6);
+        action.hp(human, pr1);
+        action.hp(enemy, pr2);
+        if ((i + (int) (Math.random() * 5)) % 4 == 0 & enemy instanceof ShaoKahn) {
             // в рандомный момент Босс пытается восстановить здоровье
-            enemy.SetRecoveryAttempt(true);
+            enemy.setRecoveryAttempt(true);
         }
-
-
-        if (human.getHealth() <= 0 & items[2].getCount() > 0) {
-            human.setNewHealth((int) (human.getMaxHealth() * 0.05));
-            items[2].setCount(-1);
-            action.HP(human, pr1);
+        if (human.getHealth() <= 0 & items[2].getAmount() > 0) {
+            human.setHealth((int) (human.getMaxHealth() * 0.05));
+            items[2].setAmount(-1);
+            action.hp(human, pr1);
             label2.setText(human.getHealth() + "/" + human.getMaxHealth());
-            rb.setText(items[2].getName() + ", " + items[2].getCount() + " шт");
+            rb.setText(items[2].getName() + ", " + items[2].getAmount() + " шт");
             label7.setText("Вы воскресли");
         }
-        // they are playing inside one round until dead
         if (human.getHealth() <= 0 | enemy.getHealth() <= 0) {
-            EndRound(human, enemy, dialog, label3,
-                    action, items, ChangeLocationLabel,results, dialog1, dialog2,
-                    frame, label4, label5, BackgroundPanel);
-
+            endRound(human, enemy, dialog, label3, action, items, changeLocationLabel, results, dialog1, dialog2, frame, label4, label5, backgroundPanel);
         }
     }
-
     /**
      * Описание действий при завершении раунда
-     * @param human
-     * @param enemy
+     * @param human Игрок
+     * @param enemy Противник
+     * @param dialog Окно с сообщением о завершении боя
+     * @param label Надпись о завершении боя
+     * @param items Предметы в мешке
+     * @param changeLocationLabel Метка с информацией о локации
+     * @param results Результаты для внесения в таблицу рекордов
+     * @param dialog1 Окно победы с попаданием в топ-10
+     * @param dialog2 Окно победы без попадания в топ-10
+     * @param frame Окно боя
+     * @param label4 Надпись о победе с попаданием в топ-10
+     * @param label5 Надпись о победе без попадания в топ-10
+     * @param BackgroundPanel Главное окно игры с боем
      */
-    public void EndRound(Player human, Player enemy, JDialog dialog,
-                         JLabel label, CharacterAction action, Items[] items,
-                         JLabel ChangeLocationLabel, ArrayList<Result> results,
-                         JDialog dialog1, JDialog dialog2, JFrame frame, JLabel label4, JLabel label5, JPanel BackgroundPanel) {
-        System.out.println("Round played");
-
-        ((Human)human).setNRound(); /// add 1 round inside location
-        ChangeLocationLabel.setText("");
-
+    public void endRound(Player human, Player enemy, JDialog dialog, JLabel label, CharacterAction action, Items[] items, JLabel changeLocationLabel,
+                         ArrayList<Result> results, JDialog dialog1, JDialog dialog2, JFrame frame, JLabel label4, JLabel label5, JPanel BackgroundPanel) {
+        ((Human)human).incrementCurrentRound();
         dialog.setVisible(true);
         dialog.setBounds(300, 150, 700, 600);
         if (human.getHealth() > 0) {
             label.setText("You win");
-            ((Human) human).setWin();
-
+            ((Human) human).addWin();
             if (enemy instanceof ShaoKahn) {
-                action.AddItems(38, 23, 8, items);
-                action.AddPointsBoss(((Human) human), action.getEnemyes());
+                action.addItems(38, 23, 8, items);
+                action.addPointsBoss(((Human) human), action.getEnemies());
             } else {
-                action.AddItems(25, 15, 5, items);
-                action.AddPoints(((Human) human), action.getEnemyes());
+                action.addItems(25, 15, 5, items);
+                action.addPoints(((Human) human), action.getEnemies());
             }
         } else {
             label.setText(enemy.getName() + " win");
         }
-        /// do we need to change location?
-
-        if(((Human)human).getNRound() == this.NRoundsLoc){
-
-            this.location++;
-
+        // do we need to change location?
+        if (((Human) human).getCurrent_round() == this.numberOfRoundsInLocation) {
+            this.current_location++;
             // set up number of rounds for next location
-            SetNRoundsLocation(human.getLevel());
-            ((Human)human).setZeroRound();
-
-            // show that location are changed
-            ChangeLocationLabel.setText("Location changed");
-
+            setnumberOfRoundsInLocation(human.getLevel());
+            ((Human) human).setZeroRound();
+            changeLocationLabel.setText("Location changed");
         }
-        if(this.location == ((Human)human).getNLocations()+1 ){
+        if (this.current_location == ((Human) human).getLocations_number() + 1) {
             System.out.println("End Final Round");
-            EndFinalRound(((Human) human), action, results, dialog1, dialog2,
-                    frame, label4, label5);
-        }else{
+            endFinalRound(((Human) human), action, results, dialog1, dialog2, frame, label4, label5);
+        } else {
             dialog.setVisible(true);
             dialog.setBounds(300, 150, 700, 600);
         }
-
         i = 1;
         k = -1;
-        kind_attack = ResetAttack();
-
+        kind_attack = resetAttack();
     }
-
-    /**
-     * Установление кол-ва раундов для локации в зависимости от уровня игрока
-     * @param level уровень игрока
-     */
-    private void SetNRoundsLocation(int level)
-    {
-        this.NRoundsLoc = level + 2;
-    }
-
     /**
      * Описание действий при завершении финального раунда
-     * @param human
+     * @param human Игрок
+     * @param results Результаты для внесения в таблицу рекордов
+     * @param dialog1 Окно победы с попаданием в топ-10
+     * @param dialog2 Окно победы без попадания в топ-10
+     * @param frame Окно боя
+     * @param label1 Надпись о победе с попаданием в топ-10
+     * @param label2 Надпись о победе без попадания в топ-10
      */
-    public void EndFinalRound(Human human, CharacterAction action,
-                              ArrayList<Result> results, JDialog dialog1, JDialog dialog2, JFrame frame,
+    public void endFinalRound(Human human, CharacterAction action, ArrayList<Result> results, JDialog dialog1, JDialog dialog2, JFrame frame,
                               JLabel label1, JLabel label2) {
         String text = "Победа не на вашей стороне";
         if (human.getHealth() > 0) {
-            human.setWin();
-            action.AddPoints(human, action.getEnemyes());
+            human.addWin();
+            action.addPoints(human, action.getEnemies());
             text = "Победа на вашей стороне";
         }
         boolean top = false;
@@ -256,30 +252,34 @@ public class Fight {
         frame.dispose();
     }
 
-    public int[] ResetAttack() {
+    public int[] resetAttack() {
         int a[] = {0};
         return a;
     }
-
     /**
-     * Описание действий для нового раунда
-     * @param human
-     * @return враг для нового раунда
+     * Описание действий, производимых перед новым раундом
+     * @param human Игрок
+     * @param label Изображение противника
+     * @param pr1 Полоска здоровья игрока
+     * @param pr2 Полоска здоровья противника
+     * @param label2 Надпись с именем противника
+     * @param text Надпись с величиной урона от атаки противника
+     * @param label3 Надпись с количеством здоровья противника
+     * @return Противник для нового раунда
      */
-    public Player NewRound(Player human, JLabel label, JProgressBar pr1, JProgressBar pr2, JLabel label2, JLabel text, JLabel label3, CharacterAction action) {
+    public Player newRound(Player human, JLabel label, JProgressBar pr1, JProgressBar pr2, JLabel label2, JLabel text, JLabel label3, CharacterAction action) {
         Player enemy1 = null;
         if (((Human) human).getWin() == 6 | ((Human) human).getWin() == 11) {
-            enemy1 = action.ChooseBoss(label, label2, text, label3, human.getLevel());
+            enemy1 = action.chooseBoss(label, label2, text, label3, human.getLevel());
         } else {
-            enemy1 = action.ChooseEnemy(label, label2, text, label3);
+            enemy1 = action.chooseEnemy(label, label2, text, label3);
         }
         pr1.setMaximum(human.getMaxHealth());
         pr2.setMaximum(enemy1.getMaxHealth());
         human.setHealth(human.getMaxHealth());
         enemy1.setHealth(enemy1.getMaxHealth());
-        action.HP(human, pr1);
-        action.HP(enemy1, pr2);
+        action.hp(human, pr1);
+        action.hp(enemy1, pr2);
         return enemy1;
     }
-
 }

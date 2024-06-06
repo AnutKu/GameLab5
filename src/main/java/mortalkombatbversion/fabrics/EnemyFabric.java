@@ -11,10 +11,8 @@ import mortalkombatbversion.gamecompnonets.Player;
  * @author Мария
  */
 public class EnemyFabric {
-
-    public Player create(int i, int j) {
+    public Player create(int i) {
         EnemyFabricInterface fabric = null;
-
         switch (i) {
             case 0:
                 fabric = new BarakaFabric();
@@ -32,7 +30,7 @@ public class EnemyFabric {
                 fabric = new ShaoKahnFabric();
                 break;
         }
-        Player enemy = fabric.create(j);
+        Player enemy = fabric.create();
         return enemy;
     }
 }

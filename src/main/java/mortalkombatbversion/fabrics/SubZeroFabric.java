@@ -15,7 +15,7 @@ import mortalkombatbversion.heroes.SubZero;
 public class SubZeroFabric implements EnemyFabricInterface {
 
     @Override
-    public Player create(int i) {
+    public Player create() {
         Player enemy;
         enemy = new SubZero(1, 60, 16, 1);
         return enemy;
