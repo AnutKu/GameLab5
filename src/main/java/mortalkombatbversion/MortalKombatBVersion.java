@@ -16,6 +16,7 @@ public class MortalKombatBVersion {
     public static void main(String[] args) {
         
         JFrames app = new JFrames();
+        app.setLocationRelativeTo(null);
         app.setVisible(true);
        
         /*Human human = new Human (0,80,16,1);

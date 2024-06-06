@@ -8,74 +8,67 @@ package mortalkombatbversion.gamecompnonets;
  *
  * @author Мария
  */
-public class Human extends Player {
-    
+public class Human extends Player{
+        private int points;
+        private int experience;
+        private int win;
+        private int nextexperience;
+        private int locations_number;
+        private int current_round = 0;
 
-    private int points;
-    private int experience;
-    private int win;
-    private int nextexperience;
-    private int Nlocations;
-    private int NRound =0;
+        public Human(int level, int health, int  damage, int attack, int locations){
+            super(level, health, damage, attack);
+            this.points = 0;
+            this.experience = 0;
+            this.nextexperience = 40;
+            this.win = 0;
+            this.locations_number = locations;
+            this.current_round = 0;
 
+        }
 
+        public void incrementCurrentRound(){
+            this.current_round ++;
+        }
+        public void setZeroRound(){
+            this.current_round = 0;
+        }
+        public int getCurrent_round() {
+            return current_round;
+        }
+        public int getLocations_number() {
+            return locations_number;
+        }
+        public void setLocations_number(int locations_number) {
+            this.locations_number = locations_number;
+        }
+        public int getPoints(){
+            return this.points;
+        }
+        public int getExperience(){
+            return this.experience;
+        }
+        public int getNextExperience(){
+            return this.nextexperience;
+        }
+        public int getWin(){
+            return this.win;
+        }
+        public void addPoints(int p){
+            this.points += p;
+        }
+        public void addExperience(int e){
+            this.experience += e;
+        }
+        public void setNextExperience(int e){
+            this.nextexperience = e;
+        }
+        public void addWin(){
+            this.win++;
+        }
 
-
-    public Human(int level, int health, int  damage, int attack, int location){
-        super (level, health, damage, attack);
-        this.points=0;
-        this.experience=0;
-        this.nextexperience=40;
-        this.win=0;
-        this.NRound=0;
-        this.Nlocations = location;
+        @Override
+        public String getName(){
+            return "ФБИУКС ОРАКУЛ";
+        }
     }
-
-    public void setNLocations(int n){
-        this.Nlocations = n;
-    }
-    public int getNLocations(){
-        return this.Nlocations;
-    }
-    public int getPoints(){
-        return this.points;
-    }
-    public int getExperience(){
-        return this.experience;
-    }
-    public int getNextExperience(){
-        return this.nextexperience;
-    }
-    public int getWin(){
-        return this.win;
-    }
-
-    public void setPoints(int p){
-        this.points+=p;
-    }
-    public void setExperience(int e){
-        this.experience+=e;
-    }
-    public void setNextExperience(int e){
-        this.nextexperience=e;
-    }
-    public void setWin(){
-        this.win++;
-    }
-    
-    @Override
-    public String getName(){
-        return "ФБИУКС ОРАКУЛ";
-    }
-
-    public void setNRound(){
-        this.NRound ++;
-    }
-    public int getNRound(){
-        return this.NRound;
-    }
-    public void setZeroRound(){
-        this.NRound=0;
-    }
-    
-}
