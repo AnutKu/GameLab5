@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mortalkombatbversion;
+package mortalkombatbversion.gamecompnonets;
 
 /**
  *
@@ -15,6 +15,7 @@ public class Player {
     private int maxhealth;
     private int damage;
     private int attack;
+    private boolean recoveryAttempt;
     
     public Player(int level, int health, int damage, int attack){
         this.level=level;
@@ -61,6 +62,14 @@ public class Player {
     
     public String getName(){
         return "";
+    }
+
+    public void SetRecoveryAttempt(boolean recovery){
+        this.recoveryAttempt = recovery;
+    }
+
+    public boolean getRecoveryAttempt(){
+        return this.recoveryAttempt;
     }
     
 }

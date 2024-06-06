@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mortalkombatbversion;
+package mortalkombatbversion.actions;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +15,11 @@ import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import mortalkombatbversion.*;
+import mortalkombatbversion.gamecompnonets.Human;
+import mortalkombatbversion.gamecompnonets.Player;
+import mortalkombatbversion.gamecompnonets.Result;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -25,9 +30,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class Game {
 
-    CharacterAction action = new CharacterAction();
-    ChangeTexts change = new ChangeTexts();
-    Fight fight = new Fight();
+    public CharacterAction action = new CharacterAction();
+    public ChangeTexts change = new ChangeTexts();
+    public Fight fight = new Fight();
+    public int location;
     private ArrayList<Result> results = new ArrayList<>();
 
     public Player NewEnemy(JLabel L1, JLabel L2,
@@ -39,8 +45,8 @@ public class Game {
         return enemy;
     }
 
-    public Human NewHuman(JProgressBar pr1){
-        Human human = new Human (0,80,16,1);
+    public Human NewHuman(JProgressBar pr1, int location){
+        Human human = new Human (0,80,16,1,  location);
         action.HP(human, pr1);
         pr1.setMaximum(human.getMaxHealth());
         return human;
