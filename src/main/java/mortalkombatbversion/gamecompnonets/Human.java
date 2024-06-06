@@ -15,18 +15,28 @@ public class Human extends Player {
     private int experience;
     private int win;
     private int nextexperience;
-    
-    
-    
-    public Human(int level, int health, int  damage, int attack){
+    private int Nlocations;
+    private int NRound =0;
+
+
+
+
+    public Human(int level, int health, int  damage, int attack, int location){
         super (level, health, damage, attack);
         this.points=0;
         this.experience=0;
         this.nextexperience=40;
         this.win=0;
+        this.NRound=0;
+        this.Nlocations = location;
     }
-    
 
+    public void setNLocations(int n){
+        this.Nlocations = n;
+    }
+    public int getNLocations(){
+        return this.Nlocations;
+    }
     public int getPoints(){
         return this.points;
     }
@@ -55,8 +65,17 @@ public class Human extends Player {
     
     @Override
     public String getName(){
-        return "You";
+        return "ФБИУКС ОРАКУЛ";
     }
 
+    public void setNRound(){
+        this.NRound ++;
+    }
+    public int getNRound(){
+        return this.NRound;
+    }
+    public void setZeroRound(){
+        this.NRound=0;
+    }
     
 }

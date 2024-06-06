@@ -33,6 +33,7 @@ public class Game {
     public CharacterAction action = new CharacterAction();
     public ChangeTexts change = new ChangeTexts();
     public Fight fight = new Fight();
+    public int location;
     private ArrayList<Result> results = new ArrayList<>();
 
     public Player NewEnemy(JLabel L1, JLabel L2,
@@ -44,8 +45,8 @@ public class Game {
         return enemy;
     }
 
-    public Human NewHuman(JProgressBar pr1){
-        Human human = new Human (0,80,16,1);
+    public Human NewHuman(JProgressBar pr1, int location){
+        Human human = new Human (0,80,16,1,  location);
         action.HP(human, pr1);
         pr1.setMaximum(human.getMaxHealth());
         return human;

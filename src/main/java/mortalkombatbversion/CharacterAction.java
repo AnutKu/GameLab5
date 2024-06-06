@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -89,7 +90,10 @@ public class CharacterAction {
 
     public Player ChooseBoss(JLabel label, JLabel label2, JLabel text, JLabel label3, int i) {
         ImageIcon icon1 = null;
-        icon1 = new ImageIcon("C:\\Users\\Мария\\Desktop\\Shao Kahn.png");
+        icon1 = new ImageIcon(
+                getClass().getClassLoader().getResource("kao.png"));
+        icon1 = new ImageIcon(icon1.getImage().getScaledInstance(
+                160, 290, java.awt.Image.SCALE_SMOOTH));
         label2.setText("Shao Kahn (босс)");
         switch (i) {
             case 2:
@@ -143,6 +147,17 @@ public class CharacterAction {
         return arr;
     }
 
+    /**
+     * Выбор улучшения игрока
+     * @return
+     */
+    public int askWhatPromote()
+    {
+        String[] options = {"Health", "Damage"};
+        int ans = JOptionPane.showOptionDialog(null, "Choose what to boost?", "selection", 0,1,null, options, options[0]);
+        return ans;
+    }
+
     public void HP(Player player, JProgressBar progress) {
 
         if (player.getHealth() >= 0) {
@@ -179,7 +194,8 @@ public class CharacterAction {
             if (experience_for_next_level[i] == human.getExperience()) {
                 human.setLevel();
                 human.setNextExperience(experience_for_next_level[i + 1]);
-                NewHealthHuman(human);
+                int promotion = askWhatPromote();
+                NewHealthHuman(human, promotion);
                 for (int j = 0; j < 4; j++) {
                     NewHealthEnemy(enemyes[j], human);
                 }
@@ -202,7 +218,8 @@ public class CharacterAction {
             if (experience_for_next_level[i] == human.getExperience()) {
                 human.setLevel();
                 human.setNextExperience(experience_for_next_level[i + 1]);
-                NewHealthHuman(human);
+                int promotion = askWhatPromote();
+                NewHealthHuman(human, promotion);
                 for (int j = 0; j < 4; j++) {
                     NewHealthEnemy(enemyes[j], human);
                 }
@@ -222,8 +239,12 @@ public class CharacterAction {
             items[2].setCount(1);
         }
     }
-
-    public void NewHealthHuman(Human human) {
+    /**
+     * Результат выбора улучшения характеристики
+     * @param human
+     * @param chosen_option
+     */
+    public void NewHealthHuman(Human human, int chosen_option) {
         int hp = 0;
         int damage = 0;
         switch (human.getLevel()) {
@@ -246,6 +267,11 @@ public class CharacterAction {
         }
         human.setMaxHealth(hp);
         human.setDamage(damage);
+        if(chosen_option == 0){
+            human.setMaxHealth(hp + (human.getLevel() + 1) * 5 );
+        }
+        else{
+            human.setDamage(damage + + (human.getLevel() + 1) * 5 );}
     }
 
     public void NewHealthEnemy(Player enemy, Human human) {
