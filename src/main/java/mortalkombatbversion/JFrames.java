@@ -2,6 +2,8 @@ package mortalkombatbversion;
 
 import mortalkombatbversion.actions.*;
 import mortalkombatbversion.gamecompnonets.*;
+
+import java.awt.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -463,7 +465,8 @@ public class JFrames extends javax.swing.JFrame {
                                 .addComponent(jButton_continue, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(72, 72, 72))
         );
-
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        jDialog_end_of_fight.setLocation(dim.width/2-jDialog_end_of_fight.getSize().width/2, dim.height/2-jDialog_end_of_fight.getSize().height/2);
         javax.swing.GroupLayout jDialog_end_of_fightLayout = new javax.swing.GroupLayout(jDialog_end_of_fight.getContentPane());
         jDialog_end_of_fight.getContentPane().setLayout(jDialog_end_of_fightLayout);
         jDialog_end_of_fightLayout.setHorizontalGroup(
@@ -867,6 +870,7 @@ public class JFrames extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel_locationsLayout = new javax.swing.GroupLayout(jPanel_locations);
         jPanel_locations.setLayout(jPanel_locationsLayout);
+
         jPanel_locationsLayout.setHorizontalGroup(
                 jPanel_locationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_locationsLayout.createSequentialGroup()
@@ -998,6 +1002,8 @@ public class JFrames extends javax.swing.JFrame {
     private void jButton_start_gameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_start_gameActionPerformed
         jDialog_locations.setVisible(true);
         jDialog_locations.setBounds(200, 100, 500, 300);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        jDialog_locations.setLocation(dim.width/2-jDialog_locations.getSize().width/2, dim.height/2-jDialog_locations.getSize().height/2);
     }//GEN-LAST:event_jButton_start_gameActionPerformed
     /**
      * Кнопка атаки
